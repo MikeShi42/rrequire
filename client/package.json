@@ -1,0 +1,30 @@
+{
+  "name": "@rrequire/client",
+  "version": "0.0.1",
+  "description": "rrequire client for browser environments",
+  "main": "lib/index.bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch"
+  },
+  "keywords": [
+    "rpc",
+    "remote",
+    "browser",
+    "require"
+  ],
+  "author": "Mike Shi <hi@michaelshi.me>",
+  "license": "MIT",
+  "dependencies": {
+    "jsonrpc-serializer": "^0.2.1",
+    "superagent": "^3.8.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
+  }
+}

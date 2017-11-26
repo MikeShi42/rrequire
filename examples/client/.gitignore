@@ -1,0 +1,5 @@
+# package-lock is relatively useless in an example project
+package-lock.json
+
+node_modules
+dist

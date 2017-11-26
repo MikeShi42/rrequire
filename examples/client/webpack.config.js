@@ -4,7 +4,7 @@ const webpack = require('webpack');
 module.exports = {
   context: path.resolve(__dirname, 'src'),
   entry: {
-    app: ['babel-polyfill', './client.js'],
+    client: ['babel-polyfill', './client.js'],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

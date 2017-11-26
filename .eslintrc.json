@@ -1,0 +1,9 @@
+{
+    "extends": "airbnb-base",
+    "rules": {
+      "no-else-return": "off",
+      "no-plusplus": "off",
+      "arrow-parens": "off",
+      "wrap-iife": ["error", "any"]
+    }
+}

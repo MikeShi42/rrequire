@@ -4,6 +4,10 @@ function add(x, y) {
   return x + y;
 }
 
+function divide(x, y) {
+  return x / y;
+}
+
 function log(tag) {
   console.log('log', tag);
 }
@@ -16,14 +20,14 @@ class Person {
   }
 }
 
-function doMagic(foo, bar) {
+function createPerson(foo) {
   return new Person(foo);
 }
 
-require('./server2');
-
-require('./serverRrequire').export({
-    add,
-    log,
-    doMagic,
+// require('@rrequire/server').start({ port: 3000, enableCors: true });
+require('@rrequire/server').export({
+  divide,
+  add,
+  log,
+  createPerson,
 });
