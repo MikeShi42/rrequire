@@ -1,6 +1,6 @@
 {
   "name": "@rrequire/server",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "rrequire RPC server for node environments",
   "main": "index.js",
   "scripts": {
@@ -8,6 +8,10 @@
   },
   "author": "",
   "license": "MIT",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/MikeShi42/rrequire"
+  },
   "dependencies": {
     "body-parser": "^1.18.2",
     "connect": "^3.6.5",

@@ -1,6 +1,6 @@
 {
   "name": "@rrequire/client",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "rrequire client for browser environments",
   "main": "lib/index.bundle.js",
   "scripts": {
@@ -16,6 +16,10 @@
   ],
   "author": "Mike Shi <hi@michaelshi.me>",
   "license": "MIT",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/MikeShi42/rrequire"
+  },
   "dependencies": {
     "jsonrpc-serializer": "^0.2.1",
     "superagent": "^3.8.1"
