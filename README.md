@@ -1,13 +1,24 @@
+![rrequire logo](https://i.imgur.com/0zexI83.png)
+
 # why rrequire?
-`rrequire` eliminates the overhead of creating and dealing with REST endpoints.
-Import and export remote functions as if they were just local functions!
+
+The 🚀 fastest ⚡️ way for web apps to start talking to servers.
+Connect your frontend to your backend with just 3 lines of code and
+zero configuration.
+
+Enjoy familiar node module export syntax
+and ES6 import syntax to make your remote calls.
+
+**Warning**: This package is still experimental and the API may change
+in-between minor versions.
 
 ## Getting Started
 
-### Client
+### Web Client
 
-The `rrequire` client allows for easy calls to a remote server implementing
-the `JSON-RPC` protocol (such as the `@rrequire/server`).
+The `rrequire` client allows for easy calls from a web browser
+to a remote server implementing the `JSON-RPC` protocol (such as the
+`@rrequire/server`).
 
 #### Install from npm:
 
@@ -23,9 +34,11 @@ the `JSON-RPC` protocol (such as the `@rrequire/server`).
       console.log(await add(x, 5));
     }
 
-By default, `rrequire` will try to send requests to the current host (`/`).
+By default, `rrequire` will try to send requests to the current host
+(`/`, equivalent to `location.origin`).
 
-All functions return [`Promises`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises)
+All functions return
+[`Promises`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises)
 that will resolve to the value that's returned
 by the remote procedure (or reject if a problem occurs). It's recommended
 to use the [`async/await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
@@ -43,14 +56,15 @@ Import the config function to globally set configs for future RPC requests.
 
 **Config Options**
 
-Key | Type | Description
---- | --- | ---
-`remoteLocation` | `String` | URL of the `JSON-RPC` server.
+Key | Type | Default | Description
+--- | --- | --- | ---
+`remoteLocation` | `String` | `/` | URL of the `JSON-RPC` server.
 
 ### Server
 
 The `rrequire` server allows for easy definition of remote functions
-that will be served on a Node server using the `JSON-RPC` protocol.
+that will be served on a Node server using the `JSON-RPC` protocol over
+http.
 
 #### Install from npm:
 
@@ -72,9 +86,8 @@ enabled for any host.
 #### Configuration
 
 Call the `start` function before any `export` function calls
-to explicitly start the Node server with custom options.
-
-Calling `start` after an `export` will have no effect.
+to explicitly start the Node server with custom options. Calling `start`
+after an `export` will have no effect.
 
 Calling `export` alone will automatically start up a server with default
 options.
@@ -87,6 +100,14 @@ options.
     require.export({
       // ... function exports here
     });
+
+
+**Start Options**
+
+Key | Type | Default | Description
+--- | --- | --- | ---
+`port` | `Number` | `3000` | Port number to listen to incoming RPC requests.
+`enableCors` | `Boolean` | `true` | If true, allows RPC requests from any domain.
 
 #### Further Info
 
