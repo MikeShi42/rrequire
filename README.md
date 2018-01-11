@@ -10,7 +10,7 @@ Enjoy familiar node module export syntax
 and ES6 import syntax to make your remote calls.
 
 **Warning**: This package is still experimental and the API may change
-in-between minor versions.
+in-between patch versions.
 
 # Getting Started
 
