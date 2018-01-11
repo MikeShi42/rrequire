@@ -8,9 +8,9 @@
   },
   "author": "",
   "license": "MIT",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/MikeShi42/rrequire"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MikeShi42/rrequire"
   },
   "dependencies": {
     "body-parser": "^1.18.2",

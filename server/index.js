@@ -10,7 +10,7 @@ const server = jayson.server();
 
 let started = false;
 
-function start({ port = 8080, enableCors = true }) {
+function start({ port = 8080, enableCors = true } = {}) {
   if (started) {
     console.warn('rrequire server already started, ignoring.');
     return;
@@ -30,13 +30,27 @@ function start({ port = 8080, enableCors = true }) {
 }
 
 module.exports = {
+  // Export as middleware to be used in an express app instead of stand-alone
+  // server.
+  middleware({ enableCors = false, end = true } = {}) {
+    // Don't start the stand-alone server if we're exporting middleware.
+    started = true;
+
+    const middlewares = [jsonParser(), server.middleware({ end })];
+    if (enableCors === true) {
+      middlewares.unshift(cors({ methods: ['POST'] }));
+    }
+    return middlewares;
+  },
+  // Start our own server with given options.
   start(opts) {
     start(opts);
   },
-  export(obj) {
-    if (!started) {
-      console.log('Implicitly starting server with default configs');
-      start({});
+  export(obj, { autoStart = true } = {}) {
+    if (!started && autoStart) {
+      console.warn('Implicitly starting server with default configs. Use ' +
+        'rrequire.export({...fns}, { autoStart: false}) to turn this off.');
+      start();
     }
 
     const wrappedFunctions = {};
@@ -59,10 +73,19 @@ module.exports = {
           if (returnValue == null) {
             returnValue = null; // return a null so we still send a result key
           }
-          callback(null, returnValue);
+          if ('then' in returnValue && typeof returnValue.then === 'function') {
+            returnValue.then(resolvedReturnValue => {
+              callback(null, resolvedReturnValue);
+            }, error => {
+              console.error(error);
+              callback(error);
+            });
+          } else {
+            callback(null, returnValue);
+          }
         } catch (error) {
           console.error(error);
-          callback(error, null);
+          callback(error);
         }
       };
 
