@@ -68,24 +68,31 @@ module.exports = {
           parsedArgsArr = args;
         }
 
-        try {
-          let returnValue = obj[funcName](...parsedArgsArr);
-          if (returnValue == null) {
-            returnValue = null; // return a null so we still send a result key
+        // Properly send response of RPC back to client
+        const handleResponse = (error, value) => {
+          if (value == null) {
+            // return a null so we still send a result key
+            return callback(error, null);
           }
+          return callback(error, value);
+        };
+
+        try {
+          const returnValue = obj[funcName](...parsedArgsArr);
+
           if ('then' in returnValue && typeof returnValue.then === 'function') {
             returnValue.then(resolvedReturnValue => {
-              callback(null, resolvedReturnValue);
+              handleResponse(null, resolvedReturnValue);
             }, error => {
               console.error(error);
-              callback(error);
+              handleResponse(error);
             });
           } else {
-            callback(null, returnValue);
+            handleResponse(null, returnValue);
           }
         } catch (error) {
           console.error(error);
-          callback(error);
+          handleResponse(error);
         }
       };
 
