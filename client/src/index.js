@@ -55,7 +55,41 @@ function remoteRequest(moduleName, methodName, argsArr) {
   });
 }
 
-module.exports = function rrequire(moduleName) {
+/**
+ * Given a module name and stubName (remote method name), we'll return a
+ * function that can be invoked with arguments that will call the corresponding
+ * remote function with given arguments.
+ * @param {String} moduleName  Name of the module (ex. 'app.js'), unused today
+ * @param {String} stubName    Name of the remote function (ex. 'add')
+ * @return {Function}          Stub function to call to invoke remote function
+ */
+function generateRemoteStub(moduleName, stubName) {
+  /**
+   * Stub function that executes a remote function
+   * @return {Promise} Resolves with the value of the remote function
+   */
+  return function remoteStub(...args) {
+    return remoteRequest(moduleName, stubName, args);
+  };
+}
+
+/**
+ * Returns an object of functions, with keys corresponding to the remote
+ * function name, and functions corresponding to the remote function call.
+ * @param {String} moduleName
+ * @param {[String]} expectedFunctionNames
+ */
+module.exports = function rrequire(moduleName, expectedFunctionNames) {
+  // Don't use Proxy if we're given specific function names.
+  if (expectedFunctionNames != null && expectedFunctionNames.forEach) {
+    const remoteModule = {};
+    expectedFunctionNames.forEach(funcName => {
+      remoteModule[funcName] = generateRemoteStub(moduleName, funcName);
+    });
+
+    return remoteModule;
+  }
+
   const handler = {
     /**
      * Generates the stub function that will resolve the actual RPC
@@ -65,13 +99,7 @@ module.exports = function rrequire(moduleName) {
      *                                  function.
      */
     get(target, name) {
-      /**
-       * Stub function that mocks a remote function
-       * @return {Promise} Resolves with the value of the remote function
-       */
-      return function remoteStub(...args) {
-        return remoteRequest(moduleName, name, args);
-      };
+      return generateRemoteStub(moduleName, name);
     },
   };
 

@@ -60,6 +60,35 @@ Key | Type | Default | Description
 --- | --- | --- | ---
 `remoteLocation` | `String` | `/` | URL of the `JSON-RPC` server.
 
+#### Advanced Usage: Avoiding ES6 Proxy
+
+The usage of
+[`Proxy`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
+in production can cause problems for browsers that
+do not yet support `Proxy`. The `Proxy` object is used to magically catch
+all property references at run time (ex. module.function),
+allowing for easy ES6-like import syntax and minimal overhead. Since
+there is no polyfill for `Proxy`, you must
+instead explicitly define which functions you expect to import from
+the remote server.
+
+By passing in an array of function names into the `rrequire` function call,
+`rrequire` avoids using `Proxy` and creates a static object with all functions
+pre-defined according to the array.
+
+**Example**
+
+    const {
+        add,
+        subtract,
+    } = rrequire('server/module', [
+        // This array specifies which function names we're importing
+        // It should match the above properties
+        'add',
+        'subtract',
+    ]);
+
+
 ## Server
 
 The `rrequire` server allows for easy definition of remote functions
