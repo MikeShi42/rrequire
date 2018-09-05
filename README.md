@@ -14,6 +14,11 @@ in-between patch versions.
 
 # Getting Started
 
+Jump To:
+
+- [Web Client](#Web-Client)
+- [Server](#Server)
+
 ## Web Client
 
 The `rrequire` client allows for easy calls from a web browser
