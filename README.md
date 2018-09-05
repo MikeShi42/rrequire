@@ -16,8 +16,8 @@ in-between patch versions.
 
 Jump To:
 
-- [Web Client](#Web-Client)
-- [Server](#Server)
+- [Web Client](#web-client)
+- [Server](#server)
 
 ## Web Client
 
