@@ -2,6 +2,7 @@ const jayson = require('jayson');
 const cors = require('cors');
 const jsonParser = require('body-parser').json;
 const connect = require('connect');
+const isPromise = require('is-promise');
 
 const app = connect();
 
@@ -80,7 +81,8 @@ module.exports = {
         try {
           const returnValue = obj[funcName](...parsedArgsArr);
 
-          if ('then' in returnValue && typeof returnValue.then === 'function') {
+          // Wait for promises before responding
+          if (isPromise(returnValue)) {
             returnValue.then(resolvedReturnValue => {
               handleResponse(null, resolvedReturnValue);
             }, error => {

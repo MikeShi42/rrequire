@@ -1,6 +1,6 @@
 {
   "name": "@rrequire/server",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "rrequire RPC server for node environments",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,7 @@
     "body-parser": "^1.18.2",
     "connect": "^3.6.5",
     "cors": "^2.8.4",
+    "is-promise": "^2.1.0",
     "jayson": "^2.0.4"
   }
 }
