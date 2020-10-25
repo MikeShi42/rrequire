@@ -1,6 +1,6 @@
 {
   "name": "@rrequire/client",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "rrequire client for browser environments",
   "main": "lib/index.bundle.js",
   "scripts": {

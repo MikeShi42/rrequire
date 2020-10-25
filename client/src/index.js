@@ -13,6 +13,7 @@ function sendRequest(req) {
   return new Promise((resolve, reject) => {
     request
       .post(options.remoteLocation)
+      .withCredentials()
       .type('application/json')
       .set('accept', 'json')
       .send(req)

@@ -32,31 +32,12 @@ http.
       return x + y;
     }
 
-    require('@rrequire/server').export({
+    require('@rrequire/server').serve({
       add,
     });
 
-By default, a `rrequire` server on port 8080 will be started with CORS
-enabled for any host.
-
-**Function Signature**: `export(Object functionsToExport, Object options)`
-
-Export with Options Example:
-
-    require('@rrequire/server').export(
-      {
-        func1,
-        func2,
-      }, {
-        autoStart: false,
-      },
-    );
-
-**Export Options**
-
-Key | Type | Default | Description
---- | --- | --- | ---
-`autoStart` | `Boolean` | `true` | If set to `false`, prevents rrequire from starting its own server. (Useful for using `start` explicitly or for using rrequire as middleware)
+Using `serve` a `rrequire` server on port 8080 will be started with CORS
+enabled for any host for quick prototyping.
 
 ### Stand-Alone Configuration
 
@@ -64,7 +45,7 @@ Call the `start` function before any `export` function calls
 to explicitly start the Node server with custom options. Calling `start`
 after an `export` will have no effect.
 
-Calling `export` alone will automatically start up a server with default
+Calling `serve` alone will automatically start up a server with default
 options.
 
     const rrequire = require('@rrequire/server')
@@ -77,6 +58,15 @@ options.
     });
 
 
+**Function Signature**: `export(Object functionsToExport)`
+
+Export with Options Example:
+
+    require('@rrequire/server').export({
+        func1,
+        func2,
+    });
+
 **Start Options**
 
 Key | Type | Default | Description
@@ -84,7 +74,7 @@ Key | Type | Default | Description
 `port` | `Number` | `3000` | Port number to listen to incoming RPC requests.
 `enableCors` | `Boolean` | `true` | If true, allows RPC requests from any domain.
 
-### Middleware (Use in Existing Apps)
+### Connect Middleware (Use in Existing Apps)
 
 Use rrequire in your current express/connect app by inserting the rrequire
 server as middleware.
